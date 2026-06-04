@@ -267,6 +267,7 @@
 | ooce/util/lrzsz		| 0.12.20	| https://ohse.de/uwe/software/lrzsz.html | [omniosorg](https://github.com/omniosorg)
 | ooce/util/ncdu		| 2.9.2		| https://dev.yorhel.nl/download | [jclulow](https://github.com/jclulow)
 | ooce/util/pass		| 1.7.4		| https://git.zx2c4.com/password-store/refs/ | [omniosorg](https://github.com/omniosorg)
+| ooce/util/qpdf     | 12.3.2    | https://github.com/qpdf/qpdf/releases   | [Markus-FN](https://github.com/Markus-FN)
 | ooce/util/rargs		| 0.3.0		| https://github.com/lotabout/rargs/releases | [omniosorg](https://github.com/omniosorg)
 | ooce/util/rlwrap		| 0.46.1	| https://github.com/hanslub42/rlwrap/releases | [r7st](https://github.com/r7st)
 | ooce/util/stress-ng		| 0.21.01	| https://github.com/ColinIanKing/stress-ng/tags | [omniosorg](https://github.com/omniosorg)

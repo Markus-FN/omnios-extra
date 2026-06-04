@@ -314,6 +314,7 @@ extra.omnios ooce/util/lrzsz
 extra.omnios ooce/util/ncdu
 extra.omnios ooce/util/pass
 extra.omnios ooce/util/qemu-img
+extra.omnios ooce/util/qpdf
 extra.omnios ooce/util/rargs
 extra.omnios ooce/util/rlwrap
 extra.omnios ooce/util/stress-ng
