@@ -197,6 +197,7 @@
 | ooce/network/znc		| 1.10.2	| https://znc.in/releases/ | [omniosorg](https://github.com/omniosorg)
 | ooce/ooceapps			| github-latest	| https://github.com/omniosorg/ooceapps/releases | [omniosorg](https://github.com/omniosorg)
 | ooce/print/cups		| 2.4.19	| https://github.com/OpenPrinting/cups/releases | [omniosorg](https://github.com/omniosorg)
+| ooce/print/ghostscript   | 10.07.1| https://www.ghostscript.com/releases/gsdnld.html | [markus-fn](https://github.com/Markus-FN)
 | ooce/runtime/expect		| 5.45.4	| https://sourceforge.net/projects/expect/files/Expect/ | [omniosorg](https://github.com/omniosorg)
 | ooce/runtime/gnu-smalltalk	| 3.2.5		| https://ftp.gnu.org/gnu/smalltalk/ | [omniosorg](https://github.com/omniosorg)
 | ooce/runtime/groovy-30	| 3.0.24	| https://groovy.apache.org/download.html | [omniosorg](https://github.com/omniosorg)

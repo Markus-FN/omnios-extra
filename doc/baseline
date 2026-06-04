@@ -239,6 +239,7 @@ extra.omnios ooce/network/znc
 extra.omnios ooce/omnios-build-tools
 extra.omnios ooce/ooceapps
 extra.omnios ooce/print/cups
+extra.omnios ooce/print/ghostscript
 extra.omnios ooce/runtime/expect
 extra.omnios ooce/runtime/gnu-smalltalk
 extra.omnios ooce/runtime/groovy-30

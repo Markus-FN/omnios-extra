@@ -17,49 +17,43 @@ DESC="Ghostscript is an interpreter for PostScript and PDF files and includes th
 
 set_arch 64
 
-# Source tarball is ghostpdl-10.07.1.tar.gz and extracts to ghostpdl-10.07.1
 DIST=ghostpdl
 DIR=gs${VER//./}
 set_builddir "$DIST-$VER"
 
 set_mirror "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/"
 
-# Initial bootstrap. Replace with real sha256 after first successful download:
-# digest -a sha256 tmp/ghostpdl-10.07.1.tar.gz
-set_checksum none
+set_checksum sha256 56f6a82907c3a73bba95de1319e029adf16477e34df2dea180d390e71e7c4053
 
 BUILD_DEPENDS_IPS+="
-    ooce/library/freetype2
-    ooce/library/libjpeg-tdurbo
-    ooce/library/libpng
-    ooce/library/tiff
-    ooce/library/lcms2
-    ooce/library/zlib
 "
 
-CONFIGURE_OPTS+="
-    --prefix=/opt/ooce/$PROG
-    --bindir=/opt/ooce/$PROG/bin
-    --libdir=/opt/ooce/$PROG/lib/$ISAPART64
-    --includedir=/opt/ooce/$PROG/include
-    --enable-dynamic
-    --with-system-libtiff
-    --with-system-lcms2
-    --with-system-libpng
-    --with-system-zlib
+OPREFIX=${PREFIX}
+PREFIX+="/${PROG}"
+
+CONFIGURE_OPTS[amd64]="
+    --prefix=${OPREFIX}
+    --exec-prefix=${PREFIX}
+    --libdir=${OPREFIX}/lib/$ISAPART64
+    --disable-hidden-visibility
 "
 
-# Ghostscript’s build is standard configure + make + make install.
-# Upstream documents the normal sequence as configure, make, install. 
-# ./configure --help is also the right place to inspect available knobs.
-# See Ghostscript build docs and OmniOS Extra build framework docs.
+XFORM_ARGS="
+    -DOPREFIX=${OPREFIX#/}
+    -DPREFIX=${PREFIX#/}
+    -DPROG=$PROG
+    -DPKGROOT=$PROG
+"
+
+SKIP_RTIME_CHECK=1
 
 init
 download_source $DIR $DIST $VER
-#prep_build
-#build
-#strip_install
-#make_package
-#clean_up
+patch_source
+prep_build
+build -noctf
+strip_install
+make_package
+clean_up
 
 # vim:ts=4:sw=4:et:fdm=marker

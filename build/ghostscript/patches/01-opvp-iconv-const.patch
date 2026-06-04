@@ -1,0 +1,13 @@
+diff -wpruN --no-dereference '--exclude=*.orig' a~/contrib/opvp/gdevopvp.c a/contrib/opvp/gdevopvp.c
+--- a~/contrib/opvp/gdevopvp.c	1970-01-01 00:00:00
++++ a/contrib/opvp/gdevopvp.c	1970-01-01 00:00:00
+@@ -1663,7 +1663,8 @@ opvp_to_utf8(char *string)
+     char *buff = NULL;
+     size_t ib, ob;
+     int  complete = false;
+-    char *ibuff, *obuff;
++    const char *ibuff;
++    char *obuff;
+     char *ostring = NULL;
+ 
+     if (string) {

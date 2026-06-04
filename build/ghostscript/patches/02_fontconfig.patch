@@ -1,0 +1,12 @@
+diff -wpruN --no-dereference '--exclude=*.orig' a~/base/unix-aux.mak a/base/unix-aux.mak
+--- a~/base/unix-aux.mak	1970-01-01 00:00:00
++++ a/base/unix-aux.mak	1970-01-01 00:00:00
+@@ -43,7 +43,7 @@ $(GLOBJ)gp_unix.$(OBJ): $(GLSRC)gp_unix.
+ $(AUX)gp_unix.$(OBJ): $(GLSRC)gp_unix.c $(AK)\
+  $(pipe__h) $(string__h) $(time__h)\
+  $(gx_h) $(gsexit_h) $(gp_h) $(UNIX_AUX_MAK) $(MAKEDIRS)
+-	$(GLCCAUX) $(AUXO_)gp_unix.$(OBJ) $(C_) $(GLSRC)gp_unix.c
++	$(GLCCAUX) $(FONTCONFIG_CFLAGS) $(AUXO_)gp_unix.$(OBJ) $(C_) $(GLSRC)gp_unix.c
+ 
+ # assume all Unix platforms support unbuffered read
+ $(GLOBJ)gp_stdib.$(OBJ): $(GLSRC)gp_stdib.c $(AK)\
