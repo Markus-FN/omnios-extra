@@ -1,0 +1,18 @@
+diff -wpruN --no-dereference '--exclude=*.orig' a~/libqpdf/qpdf/QPDFObjectHandle_private.hh a/libqpdf/qpdf/QPDFObjectHandle_private.hh
+--- a~/libqpdf/qpdf/QPDFObjectHandle_private.hh	1970-01-01 00:00:00
++++ a/libqpdf/qpdf/QPDFObjectHandle_private.hh	1970-01-01 00:00:00
+@@ -338,10 +338,12 @@ namespace qpdf
+         {
+             auto v = value();
+ 
+-            if (std::cmp_greater(v, std::numeric_limits<T>::max())) {
++            auto tmax = static_cast<long long>(std::numeric_limits<T>::max());
++            auto tmin = static_cast<long long>(std::numeric_limits<T>::min());
++            if (std::cmp_greater(v, tmax)) {
+                 throw std::overflow_error("Integer conversion overflow");
+             }
+-            if (std::cmp_less(v, std::numeric_limits<T>::min())) {
++            if (std::cmp_less(v, tmin)) {
+                 throw std::underflow_error("Integer conversion underflow");
+             }
+             return static_cast<T>(v);
