@@ -60,4 +60,4 @@ prep_build
 extract_licence
 buildperl
 make_package
-#clean_up
+clean_up
