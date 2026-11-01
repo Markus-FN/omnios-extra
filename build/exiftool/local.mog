@@ -1,0 +1,7 @@
+<include binlink.mog>
+<include manlink.mog>
+<transform file path=.*/\.packlist$ -> drop>
+<transform dir path=$(INSTALLSITELIB)/perl5(/.*)? -> drop>
+
+license LICENCE license=Various
+license files/Artistic license=Artistic

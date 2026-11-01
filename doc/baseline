@@ -206,6 +206,7 @@ extra.omnios ooce/library/yaml
 extra.omnios ooce/multimedia/dav1d
 extra.omnios ooce/multimedia/dcraw
 extra.omnios ooce/multimedia/exif
+extra.omnios iice/multimedia/exiftool
 extra.omnios ooce/multimedia/ffmpeg
 extra.omnios ooce/multimedia/mediasrv-common
 extra.omnios ooce/multimedia/minidlna
