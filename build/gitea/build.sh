@@ -12,22 +12,23 @@
 # http://www.illumos.org/license/CDDL.
 # }}}
 
-# Copyright 2025 OmniOS Community Edition (OmniOSce) Association.
+# Copyright 2026 OmniOS Community Edition (OmniOSce) Association.
 
 . ../../lib/build.sh
 
 PROG=gitea
 PKG=ooce/application/gitea
-VER=1.25.5
+VER=28.2.0
 SUMMARY="Git with a cup of tea"
 DESC="Git with a cup of tea, painless self-hosted git service"
+
+set_builddir $PROG-src-$VER
 
 OPREFIX=$PREFIX
 PREFIX+=/$PROG
 
 set_arch 64
-set_gover
-set_nodever
+set_gover 1.27
 
 XFORM_ARGS="
     -DPREFIX=${PREFIX#/}
@@ -36,28 +37,46 @@ XFORM_ARGS="
     -DVERSION=$VER
 "
 
-BUILD_DEPENDS_IPS="
+BUILD_DEPENDS_IPS+="
 	network/rsync
 "
 RUN_DEPENDS_IPS=developer/versioning/git
 
 # gitea build wants GNU grep from 1.11.x on
 export PATH="$GNUBIN:$PATH"
+# build with the go version from set_gover, not a toolchain downloaded for go.mod
+export GOTOOLCHAIN=local
 
 build() {
     pushd $TMPDIR/$BUILDDIR > /dev/null
 
     subsume_arch amd64 LDFLAGS
     export LDFLAGS=" \
-    -X code.gitea.io/gitea/modules/setting.CustomPath=/var$PREFIX/custom \
-    -X code.gitea.io/gitea/modules/setting.CustomConf=/etc$PREFIX/app.ini \
-    -X code.gitea.io/gitea/modules/setting.AppWorkPath=/var$PREFIX \
+    -X gitea.dev/modules/setting.CustomPath=/var$PREFIX/custom \
+    -X gitea.dev/modules/setting.CustomConf=/etc$PREFIX/app.ini \
+    -X gitea.dev/modules/setting.AppWorkPath=/var$PREFIX \
     "
 
     logmsg "Building 64-bit"
-    TAGS="bindata sqlite sqlite_unlock_notify" logcmd $MAKE build \
+    TAGS="bindata sqlite sqlite_mattn sqlite_unlock_notify" logcmd $MAKE build \
         || logerr "Build failed"
-    ./gitea help | sed -n '/DEFAULT CONFIGURATION:/,$p'
+
+    typeset cfg="`./gitea help | $SED -n '
+            /DEFAULT CONFIGURATION:/,$ {
+                /AppPath/n
+                p
+            }
+        '`"
+    logmsg "$cfg"
+    for p in \
+        WorkPath:/var$PREFIX \
+        CustomPath:/var$PREFIX/custom \
+        ConfigFile:/etc$PREFIX/app.ini; do
+        typeset var=${p%%:*}
+        typeset val=${p#*:}
+        echo "$cfg" | grep -q "$var:[[:space:]]*$val\$" \
+            || logerr "$var is not $val"
+    done
 
     # Gitea version <ver> built with go<ver>
     [ "`./gitea --version | awk '{print $3}'`" = "$VER" ] \
@@ -83,7 +102,7 @@ install() {
 }
 
 init
-clone_go_source $PROG go-$PROG v$VER
+download_source $PROG $PROG-src $VER
 patch_source
 prep_build
 build

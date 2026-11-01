@@ -17,12 +17,12 @@
 . ../../lib/build.sh
 
 PROG=openldap
-VER=2.6.13
+VER=2.6.15
 PKG=ooce/network/openldap
 SUMMARY="open-source LDAP implementation"
 DESC="Open-source implementation of the Lightweight Directory Access Protocol"
 
-test_relver '>=' 151051 && set_clangver
+set_clangver
 
 # Previous versions that also need to be built and packaged since compiled
 # software may depend on it.
@@ -108,15 +108,16 @@ pre_build() { ! cross_arch $1; }
 # Build previous versions
 for pver in $PVERS; do
     note -n "Building previous version: $pver"
-    save_variables BUILDDIR EXTRACTED_SRC CONFIGURE_OPTS
+    save_variables BUILDDIR EXTRACTED_SRC CONFIGURE_OPTS CFLAGS
     BUILDDIR=$PROG-$pver
     EXTRACTED_SRC=$PROG-$pver
     CONFIGURE_OPTS[amd64]+=" --disable-slapd"
+    set_cstandard gnu17
     download_source $PROG $PROG $pver
     patch_source patches-`echo $pver | cut -d. -f1-2`
     run_autoconf -f
     build
-    restore_variables BUILDDIR EXTRACTED_SRC CONFIGURE_OPTS
+    restore_variables BUILDDIR EXTRACTED_SRC CONFIGURE_OPTS CFLAGS
 done
 unset -f pre_build
 

@@ -220,7 +220,7 @@ GNUBIN=/usr/gnu/bin
 for util in \
     basename cat comm cut diff dis tput digest mktemp sort sed tee rm mv cp \
     mkdir rmdir readlink ln ls chmod touch grep time find fgrep egrep uniq \
-    stat strip sleep tail date
+    stat strip sleep tail date nm
 do
     declare -n _var=${util^^}
     declare -g _var=$USRBIN/$util
@@ -293,6 +293,7 @@ CTFCFLAGS[11]="-gdwarf-2"
 CTFCFLAGS[12]="-gdwarf-2"
 CTFCFLAGS[13]="-gdwarf-2"
 CTFCFLAGS[14]="-gdwarf-4"
+CTFCFLAGS[15]="-gdwarf-4"
 GENOFFSETS_CFLAGS="
     ${CTFCFLAGS[_]}
     -_gcc=-fno-eliminate-unused-debug-symbols
@@ -303,14 +304,18 @@ test_relver '>=' 151053 && GENOFFSETS_CFLAGS+=" -std=gnu99"
 
 CTF_DEFAULT=1
 
-# Figure out number of logical CPUs for use with parallel gmake jobs (-j)
+# Determine the number of parallel make jobs (-j).
 # Default to 1.5*nCPUs as we assume the build machine is 100% devoted to
-# compiling.
-# A build script may serialize make by setting NO_PARALLEL_MAKE
+# compiling but, if that comes to more than 16, allow no more than one job per
+# 2GiB of memory so that machines with many cores and comparatively little
+# memory do not thrash. In a non-global zone with a physical memory cap,
+# prtconf reports the cap.
 LCPUS=`psrinfo | wc -l`
-MJOBS="$[ $LCPUS + ($LCPUS / 2) ]"
-[ "$MJOBS" = "0" ] && MJOBS=2
-MAKE_JOBS="-j $MJOBS"
+PMEM=`prtconf -m`
+MJOBS=$((LCPUS + LCPUS / 2))
+((MJOBS > 16 && PMEM / 2048 > 0 && PMEM / 2048 < MJOBS)) &&
+    MJOBS=$((PMEM / 2048))
+((MJOBS < 2)) && MJOBS=2
 MAKE_TARGET=
 
 # Remove install or packaging files by default. You can set this in a build
@@ -349,7 +354,7 @@ BUILDENV_OPTS="
     CONFIGURE_CMD CONFIGURE_OPTS
     CFLAGS CXXFLAGS CPPFLAGS
     LDFLAGS
-    MAKE_JOBS
+    MJOBS
 "
 
 CCACHE_PATH=/opt/ooce/ccache/bin
@@ -372,7 +377,8 @@ case $RELVER in
     15104[12])          DEFAULT_GCC_VER=11; ILLUMOS_GCC_VER=10 ;;
     15104[3-6])         DEFAULT_GCC_VER=12; ILLUMOS_GCC_VER=10 ;;
     15104[7-9]|151050)  DEFAULT_GCC_VER=13; ILLUMOS_GCC_VER=10 ;;
-    15105[1-9])         DEFAULT_GCC_VER=14; ILLUMOS_GCC_VER=10 ;;
+    15105[1-8])         DEFAULT_GCC_VER=14; ILLUMOS_GCC_VER=10 ;;
+    151059|15106[0-9])  DEFAULT_GCC_VER=15; ILLUMOS_GCC_VER=10 ;;
     *) logerr "Unknown release '$RELVER', can't select compiler." ;;
 esac
 
@@ -390,10 +396,10 @@ case $RELVER in
     *)                  DEFAULT_CLANG_VER=13 ;;
 esac
 
-DEFAULT_GO_VER=1.25
-DEFAULT_NODE_VER=22
+DEFAULT_GO_VER=1.26
+DEFAULT_NODE_VER=24
 DEFAULT_RUBY_VER=3.4
-DEFAULT_ZIG_VER=0.14
+DEFAULT_ZIG_VER=0.15
 
 PYTHON2VER=2.7
 case $RELVER in
@@ -403,7 +409,7 @@ case $RELVER in
     15104[1-4])         PYTHON3VER=3.10 ;;
     15104[5-8])         PYTHON3VER=3.11 ;;
     151049|15105[0-2])  PYTHON3VER=3.12 ;;
-    15105[3-9])         PYTHON3VER=3.13 ;;
+    15105[3-9]|15106*)  PYTHON3VER=3.13 ;;
     *)                  PYTHON3VER=3.5 ;;
 esac
 # Specify default Python version for building packages
@@ -474,10 +480,13 @@ typeset -A CXXFLAGS=(
     [amd64]=-m64
 )
 
+typeset -A CPPFLAGS=(
+    [0]=-D_REENTRANT
+)
+
 typeset -A PYBUILDOPTS=()
 typeset -A PYINSTOPTS=()
 
-typeset -A CPPFLAGS=()
 typeset -A PKG_CONFIG_PATH=(
     [i386]=$PREFIX/lib/pkgconfig
     [amd64]=$PREFIX/lib/amd64/pkgconfig

@@ -17,21 +17,19 @@
 . ../../lib/build.sh
 
 PROG=libheif
-VER=1.21.2
+VER=1.23.6
 PKG=ooce/library/libheif
 SUMMARY="HEIF and AVIF encoder"
 DESC="ISO/IEC 23008-12:2017 HEIF and AVIF (AV1 Image File Format) "
 DESC+="file format decoder and encoder"
 
-test_relver '>=' 151047 && set_clangver
+set_clangver
 
 # The rav1e ABI changes frequently. Lock the version
 # pulled into each build of libheif.
 RAV1EVER=`pkg_ver rav1e`
 RAV1EVER=${RAV1EVER%.*}
 
-# TODO: we don't cross build rust software, yet. but the rav1e build-time
-# dependency is met on the build host
 BUILD_DEPENDS_IPS="
     ooce/library/libde265
     ooce/multimedia/dav1d
@@ -54,14 +52,16 @@ pre_configure() {
 
     export CMAKE_LIBRARY_PATH=${SYSROOT[$arch]}$PREFIX/${LIBDIRS[$arch]}
 
+    _libdir=${SYSROOT[$arch]}/usr/${LIBDIRS[$arch]}
     CONFIGURE_OPTS[$arch]="
         -DCMAKE_INSTALL_LIBDIR=$PREFIX/${LIBDIRS[$arch]}
         -DZLIB_INCLUDE_DIR=${SYSROOT[$arch]}/usr/include
-        -DZLIB_LIBRARY_RELEASE=${SYSROOT[$arch]}/usr/${LIBDIRS[$arch]}/libz.so
+        -DZLIB_LIBRARY_RELEASE=$_libdir/libz.so
         -DBROTLI_DEC_INCLUDE_DIR=${SYSROOT[$arch]}/usr/include
-        -DBROTLI_DEC_LIB=${SYSROOT[$arch]}/usr/${LIBDIRS[$arch]}/libbrotlidec.so
+        -DBROTLI_DEC_LIB=$_libdir/libbrotlidec.so
         -DBROTLI_ENC_INCLUDE_DIR=${SYSROOT[$arch]}/usr/include
-        -DBROTLI_ENC_LIB=${SYSROOT[$arch]}/usr/${LIBDIRS[$arch]}/libbrotlienc.so
+        -DBROTLI_ENC_LIB=$_libdir/libbrotlienc.so
+        -DBROTLI_COMMON_LIB=$_libdir/libbrotlicommon.so
     "
 
     LDFLAGS[$arch]+=" -Wl,-R$PREFIX/${LIBDIRS[$arch]}"

@@ -18,7 +18,7 @@
 . ../../lib/build.sh
 
 PROG=postfix
-VER=3.11.2
+VER=3.11.7
 PKG=ooce/network/smtp/postfix
 SUMMARY="Postfix MTA"
 DESC="Wietse Venema's mail server alternative to sendmail"
@@ -87,7 +87,7 @@ pre_configure() {
             -DDEF_SENDMAIL_PATH=\"'${PREFIX}/sbin/sendmail'\" \
             ' || logerr "failed making native makefiles"
 
-        logcmd $MAKE $MAKE_JOBS || logerr "failed to make native tools"
+        logcmd $MAKE -j$MJOBS || logerr "failed to make native tools"
         logcmd $CP $TMPDIR/$BUILDDIR/bin/postconf $TMPDIR/ \
             || logerr "failed to copy native postconf"
 

@@ -12,19 +12,19 @@
 # http://www.illumos.org/license/CDDL.
 # }}}
 
-# Copyright 2025 OmniOS Community Edition (OmniOSce) Association.
+# Copyright 2026 OmniOS Community Edition (OmniOSce) Association.
 
 . ../../lib/build.sh
 
 PROG=navidrome
-VER=0.61.2
+VER=0.64.2
 PKG=ooce/application/navidrome
 SUMMARY="$PROG"
 DESC="$PROG - an open source web-based music collection server and streamer"
 
 set_arch 64
 set_gover
-set_nodever 24
+set_nodever
 
 RUN_DEPENDS_IPS="
     ooce/multimedia/mediasrv-common
@@ -46,14 +46,6 @@ export PATH="$GNUBIN:$PATH"
 build() {
     pushd $TMPDIR/$BUILDDIR > /dev/null
 
-    subsume_arch $BUILDARCH PKG_CONFIG_PATH
-    # although it requires pkg-config to make sure the libs/headers are present
-    # it does not seem to add the flags where due
-    CGO_CPPFLAGS="-I$OPREFIX/include/taglib"
-    CGO_LDFLAGS="
-        -L$OPREFIX/${LIBDIRS[$BUILDARCH]}
-        -Wl,-R$OPREFIX/${LIBDIRS[$BUILDARCH]}
-    "
     # this is a bandaid for `gen2brain/webp` which tells it to fallback to WASM
     # over using purego. this can be removed if/when purego supports illumos.
     EXTRA_BUILD_TAGS=nodynamic

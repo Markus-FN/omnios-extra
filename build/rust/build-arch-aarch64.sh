@@ -18,7 +18,7 @@
 
 PROG=rust
 PKG=ooce/developer/rust
-VER=1.95.0
+VER=1.99.1
 SUMMARY="Rust systems programming language"
 DESC="Rust is a systems programming language that runs blazingly fast, "
 DESC+="prevents segfaults, and guarantees thread safety."
@@ -83,9 +83,7 @@ pre_configure() { :;
 
     tripus=${RUSTTRIPLETS[aarch64]//-/_}
     tripuc=${tripus^^}
-    export CARGO_TARGET_${tripuc}_RUSTFLAGS="
-        -C link-arg=--sysroot=${SYSROOT[aarch64]}
-    "
+    export CARGO_TARGET_${tripuc}_RUSTFLAGS="-C link-arg=--sysroot=${SYSROOT[aarch64]}"
     export CXXFLAGS_${tripus}="-mno-outline-atomics -mtls-dialect=trad"
 }
 

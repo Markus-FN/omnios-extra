@@ -32,7 +32,7 @@ set_zigver
 pre_configure() { false; }
 
 # enable SSP and avoid BMI instructions
-export ZIG_FLAGS="-Dcpu=baseline"
+export ZIG_FLAGS="--release=fast -Dcpu=baseline"
 
 MAKE_INSTALL_ARGS="PREFIX=$PREFIX"
 
@@ -41,7 +41,6 @@ download_source $PROG $PROG $VER
 patch_source
 prep_build
 build -noctf
-strip_install
 make_package
 clean_up
 

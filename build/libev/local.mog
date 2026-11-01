@@ -8,7 +8,9 @@
 # source. A copy of the CDDL is also available via the Internet at
 # http://www.illumos.org/license/CDDL.
 
-# Copyright 2019 OmniOS Community Edition (OmniOSce) Association.
+# Copyright 2026 OmniOS Community Edition (OmniOSce) Association.
 
 license LICENSE license=simplified-BSD
+
+<transform file path=$(PREFIX)/include/event.h$ -> drop>
 

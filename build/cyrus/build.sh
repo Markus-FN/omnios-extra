@@ -17,13 +17,18 @@
 . ../../lib/build.sh
 
 PROG=cyrus
-VER=3.12.2
+VER=3.12.4
 PKG=ooce/network/cyrus-imapd
 SUMMARY="Cyrus IMAP"
 DESC="An email, contacts and calendar server"
 
 ICALVER=3.0.20
-XAPIANVER=1.4.29
+XAPIANVER=2.1.0
+
+# Perl modules bundled to give the cyradm shell command line editing and
+# history.
+TRLPVER=1.0303
+TRKVER=2.38
 
 # The icu4c ABI changes frequently. Lock the version
 # pulled into each build of cyrus-imapd.
@@ -39,6 +44,7 @@ SKIP_LICENCES='*attribution*'
 SKIP_RTIME_CHECK=1
 
 set_arch 64
+set_cstandard gnu17
 set_builddir $PROG-imapd-$VER
 
 XFORM_ARGS="
@@ -165,6 +171,19 @@ use lib '$PREFIX/lib/perl/$SPERLVER';
     done
 
     popd >/dev/null
+
+    # Bundle Term::ReadLine::Perl and Term::ReadKey alongside the Cyrus perl
+    # modules.
+    logmsg "Adding Term::ReadLine::Perl $TRLPVER and Term::ReadKey $TRKVER"
+    typeset trlroot=$TMPDIR/_trl
+    $CURL -s -L https://cpanmin.us | \
+        logcmd $PERL - -L $trlroot -n --reinstall --no-man-pages \
+        Term::ReadLine::Perl@$TRLPVER Term::ReadKey@$TRKVER \
+        || logerr "failed to install cyradm perl modules"
+    logcmd $MKDIR -p $DESTDIR/$PREFIX/lib/perl/$SPERLVER
+    logcmd $RSYNC -a --exclude=.meta --exclude='*.packlist' \
+        $trlroot/lib/perl5/ $DESTDIR/$PREFIX/lib/perl/$SPERLVER/ \
+        || logerr "failed to copy cyradm perl modules"
 }
 
 download_source cyrus $PROG-imapd $VER

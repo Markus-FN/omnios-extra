@@ -17,7 +17,7 @@
 . ../../lib/build.sh
 
 PROG=gnutls
-VER=3.8.12
+VER=3.8.13
 PKG=ooce/library/gnutls
 SUMMARY="GnuTLS Transport Layer Security Library"
 DESC="Secure communications library implementing the SSL, TLS and "
@@ -35,6 +35,7 @@ BUILD_DEPENDS_IPS="ooce/library/nettle"
 
 forgo_isaexec
 set_standard XPG6
+set_cstandard gnu17
 
 SKIP_RTIME_CHECK=1
 TESTSUITE_FILTER='^[A-Z#][A-Z ]'

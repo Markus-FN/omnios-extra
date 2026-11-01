@@ -17,7 +17,7 @@
 . ../../lib/build.sh
 
 PROG=ffmpeg
-VER=8.1.1
+VER=9.0.2
 PKG=ooce/multimedia/ffmpeg
 SUMMARY="ffmpeg"
 DESC="A complete, cross-platform solution to record, "
@@ -25,7 +25,7 @@ DESC+="convert and stream audio and video."
 
 # Previous versions that also need to be built and packaged since compiled
 # software may depend on it.
-PVERS="4.4.6 5.1.8 6.1.4 7.1.3"
+PVERS="4.4.8 5.1.10 6.1.6 7.1.5 8.1.2"
 
 set_clangver
 
@@ -66,6 +66,7 @@ CONFIGURE_OPTS="
     --enable-libx265
     --enable-gnutls
     --enable-libopus
+    --enable-libmp3lame
 "
 CONFIGURE_OPTS[i386]="
     --disable-librav1e
@@ -92,6 +93,7 @@ pre_configure() {
     # to find x264.h for builtin check
     CPPFLAGS+=" -I${SYSROOT[$arch]}$OPREFIX/include"
 
+    LDFLAGS[$arch]+=" -L${SYSROOT[$arch]}$OPREFIX/${LIBDIRS[$arch]}"
     LDFLAGS[$arch]+=" -Wl,-R$OPREFIX/${LIBDIRS[$arch]}"
 
     ! cross_arch $arch && return
