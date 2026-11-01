@@ -49,6 +49,7 @@ extra.omnios ooce/database/lmdb
 extra.omnios ooce/database/mariadb-1011
 extra.omnios ooce/database/mariadb-106
 extra.omnios ooce/database/mariadb-114
+extra.omnios ooce/database/mariadb-123
 extra.omnios ooce/database/mariadb-common
 extra.omnios ooce/database/postgresql-14
 extra.omnios ooce/database/postgresql-14/mysql_fdw
@@ -84,13 +85,11 @@ extra.omnios ooce/developer/cargo-c
 extra.omnios ooce/developer/ccache
 extra.omnios ooce/developer/clang-13
 extra.omnios ooce/developer/clang-130 r
-extra.omnios ooce/developer/clang-15
-extra.omnios ooce/developer/clang-17
-extra.omnios ooce/developer/clang-18
 extra.omnios ooce/developer/clang-19
 extra.omnios ooce/developer/clang-20
 extra.omnios ooce/developer/clang-21
 extra.omnios ooce/developer/clang-22
+extra.omnios ooce/developer/clang-23
 extra.omnios ooce/developer/cmake
 extra.omnios ooce/developer/cscope
 extra.omnios ooce/developer/cunit
@@ -106,13 +105,11 @@ extra.omnios ooce/developer/gperf
 extra.omnios ooce/developer/gyp
 extra.omnios ooce/developer/llvm-13
 extra.omnios ooce/developer/llvm-130 r
-extra.omnios ooce/developer/llvm-15
-extra.omnios ooce/developer/llvm-17
-extra.omnios ooce/developer/llvm-18
 extra.omnios ooce/developer/llvm-19
 extra.omnios ooce/developer/llvm-20
 extra.omnios ooce/developer/llvm-21
 extra.omnios ooce/developer/llvm-22
+extra.omnios ooce/developer/llvm-23
 extra.omnios ooce/developer/ninja
 extra.omnios ooce/developer/omni
 extra.omnios ooce/developer/pkgmgr
@@ -123,9 +120,6 @@ extra.omnios ooce/developer/rust
 extra.omnios ooce/developer/subversion
 extra.omnios ooce/developer/valgrind
 extra.omnios ooce/developer/yasm
-extra.omnios ooce/developer/zig-012
-extra.omnios ooce/developer/zig-013
-extra.omnios ooce/developer/zig-014
 extra.omnios ooce/developer/zig-015
 extra.omnios ooce/driver/fuse
 extra.omnios ooce/editor/emacs
@@ -170,6 +164,7 @@ extra.omnios ooce/library/libmcrypt
 extra.omnios ooce/library/libogg
 extra.omnios ooce/library/libpciaccess
 extra.omnios ooce/library/libpng
+extra.omnios ooce/library/libraw
 extra.omnios ooce/library/libsodium
 extra.omnios ooce/library/libtasn1
 extra.omnios ooce/library/libtpms
@@ -183,6 +178,7 @@ extra.omnios ooce/library/libzip
 extra.omnios ooce/library/mariadb-1011
 extra.omnios ooce/library/mariadb-106
 extra.omnios ooce/library/mariadb-114
+extra.omnios ooce/library/mariadb-123
 extra.omnios ooce/library/nettle
 extra.omnios ooce/library/onig
 extra.omnios ooce/library/openldap
@@ -247,9 +243,9 @@ extra.omnios ooce/runtime/expect
 extra.omnios ooce/runtime/gnu-smalltalk
 extra.omnios ooce/runtime/groovy-30
 extra.omnios ooce/runtime/groovy-40
-extra.omnios ooce/runtime/node-20
 extra.omnios ooce/runtime/node-22
 extra.omnios ooce/runtime/node-24
+extra.omnios ooce/runtime/node-26
 extra.omnios ooce/runtime/ruby-30
 extra.omnios ooce/runtime/ruby-32
 extra.omnios ooce/runtime/ruby-33
@@ -318,6 +314,7 @@ extra.omnios ooce/util/jq
 extra.omnios ooce/util/lrzsz
 extra.omnios ooce/util/ncdu
 extra.omnios ooce/util/pass
+extra.omnios ooce/util/qemu-ga
 extra.omnios ooce/util/qemu-img
 extra.omnios ooce/util/rargs
 extra.omnios ooce/util/rlwrap

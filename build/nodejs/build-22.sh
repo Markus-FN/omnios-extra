@@ -17,7 +17,7 @@
 . ../../lib/build.sh
 
 PROG=node
-VER=22.23.1
+VER=22.23.4
 PKG=ooce/runtime/node-22
 SUMMARY="Node.js is an evented I/O framework for the V8 JavaScript engine."
 DESC="Node.js is an evented I/O framework for the V8 JavaScript engine. "
@@ -32,6 +32,12 @@ MAJVER=${VER%%.*}
 set_arch 64
 set_builddir $PROG-v$VER
 set_patchdir patches-$MAJVER
+
+# the default cap of one job per 2GiB of memory is a bit tight
+# for node.js builds under certain circumstances.
+# use 3GiB instead (see lib/config.sh for details)
+((PMEM / 3072 > 0 && PMEM / 3072 < MJOBS)) &&
+    MJOBS=$((PMEM / 3072 + 1))
 
 BUILD_DEPENDS_IPS="
     developer/gnu-binutils
@@ -56,7 +62,6 @@ CONFIGURE_OPTS[amd64]=
 CONFIGURE_OPTS="
     --prefix=$PREFIX
     --shared-zlib
-    --shared-brotli
 "
 
 init

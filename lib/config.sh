@@ -399,7 +399,7 @@ esac
 DEFAULT_GO_VER=1.26
 DEFAULT_NODE_VER=24
 DEFAULT_RUBY_VER=3.4
-DEFAULT_ZIG_VER=0.14
+DEFAULT_ZIG_VER=0.15
 
 PYTHON2VER=2.7
 case $RELVER in
@@ -409,7 +409,7 @@ case $RELVER in
     15104[1-4])         PYTHON3VER=3.10 ;;
     15104[5-8])         PYTHON3VER=3.11 ;;
     151049|15105[0-2])  PYTHON3VER=3.12 ;;
-    15105[3-9])         PYTHON3VER=3.13 ;;
+    15105[3-9]|15106*)  PYTHON3VER=3.13 ;;
     *)                  PYTHON3VER=3.5 ;;
 esac
 # Specify default Python version for building packages

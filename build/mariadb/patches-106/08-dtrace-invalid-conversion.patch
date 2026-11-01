@@ -128,7 +128,7 @@ diff -wpruN --no-dereference '--exclude=*.orig' a~/sql/sql_class.h a/sql/sql_cla
 diff -wpruN --no-dereference '--exclude=*.orig' a~/sql/sql_cursor.cc a/sql/sql_cursor.cc
 --- a~/sql/sql_cursor.cc	1970-01-01 00:00:00
 +++ a/sql/sql_cursor.cc	1970-01-01 00:00:00
-@@ -125,7 +125,7 @@ int mysql_open_cursor(THD *thd, select_r
+@@ -124,7 +124,7 @@ int mysql_open_cursor(THD *thd, select_r
  
    MYSQL_QUERY_EXEC_START(thd->query(),
                           thd->thread_id,
@@ -191,7 +191,7 @@ diff -wpruN --no-dereference '--exclude=*.orig' a~/sql/sql_prepare.cc a/sql/sql_
 diff -wpruN --no-dereference '--exclude=*.orig' a~/storage/csv/ha_tina.cc a/storage/csv/ha_tina.cc
 --- a~/storage/csv/ha_tina.cc	1970-01-01 00:00:00
 +++ a/storage/csv/ha_tina.cc	1970-01-01 00:00:00
-@@ -1245,7 +1245,7 @@ int ha_tina::rnd_next(uchar *buf)
+@@ -1247,7 +1247,7 @@ int ha_tina::rnd_next(uchar *buf)
  {
    int rc;
    DBUG_ENTER("ha_tina::rnd_next");
@@ -200,7 +200,7 @@ diff -wpruN --no-dereference '--exclude=*.orig' a~/storage/csv/ha_tina.cc a/stor
                         TRUE);
  
    if (share->crashed)
-@@ -1300,7 +1300,7 @@ int ha_tina::rnd_pos(uchar * buf, uchar
+@@ -1302,7 +1302,7 @@ int ha_tina::rnd_pos(uchar * buf, uchar
  {
    int rc;
    DBUG_ENTER("ha_tina::rnd_pos");
