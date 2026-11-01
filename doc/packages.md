@@ -163,7 +163,7 @@
 | ooce/multimedia/dav1d		| 1.5.4		| https://downloads.videolan.org/pub/videolan/dav1d/ https://www.videolan.org/projects/dav1d.html | [omniosorg](https://github.com/omniosorg)
 | ooce/multimedia/dcraw		| 9.28.0	| https://www.dechifro.org/dcraw/archive/ | [omniosorg](https://github.com/omniosorg)
 | ooce/multimedia/exif		| 0.6.21	| https://sourceforge.net/projects/libexif/files/exif/ | [omniosorg](https://github.com/omniosorg)
-| ooce/multimedia/exiftool | 13.60  | https://sourceforge.net/projects/exiftool/files/ | [markus-fn](ihttps://github.com/Markus-FN) 
+| ooce/multimedia/exiftool | 13.60  | https://sourceforge.net/projects/exiftool/files/ | [markus-fn](https://github.com/Markus-FN) 
 | ooce/multimedia/ffmpeg	| 9.0.2		| https://www.ffmpeg.org/download.html#releases | [omniosorg](https://github.com/omniosorg)
 | ooce/multimedia/minidlna	| 1.3.3		| https://sourceforge.net/projects/minidlna/files/minidlna/ | [omniosorg](https://github.com/omniosorg)
 | ooce/multimedia/rav1e		| 0.8.0		| https://github.com/xiph/rav1e/releases | [omniosorg](https://github.com/omniosorg)
